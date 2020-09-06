@@ -14,11 +14,6 @@
    limitations under the License.
 */
 
-/*
-	GPRO-Graphics1.c/.cpp
-	Main source file for GPRO-Graphics1 library.
-
-	Modified by: ____________
-	Modified because: ____________
-*/
-
+#ifndef __cplusplus
+#error "Project is C++ only. Does NOT support C." 
+#endif

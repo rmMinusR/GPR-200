@@ -155,10 +155,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\include\rawdata.cpp" />
     <ClCompile Include="GPRO-Graphics1.cpp" />
+    <ClCompile Include="image.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\include\gpro\gpro-math\gproVector.h" />
+    <ClInclude Include="..\..\..\include\pointlesskw.h" />
+    <ClInclude Include="..\..\..\include\rawdata.hpp" />
+    <ClInclude Include="image.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\include\gpro\gpro-math\_inl\gproVector.inl" />
