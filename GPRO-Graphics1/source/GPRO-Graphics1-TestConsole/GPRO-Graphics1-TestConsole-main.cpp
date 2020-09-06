@@ -29,7 +29,6 @@
 
 #include "gpro/gpro-math/gproVector.h"
 
-
 void testVector()
 {
 	// test array vector initializers and functions

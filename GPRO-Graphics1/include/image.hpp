@@ -1,13 +1,11 @@
 #pragma once
 
-#include "rawdata.hpp"
-
-using color = float3; //TODO make actual color class, sitting on top of polyfloat
+#include "color.hpp"
 
 class image
 {
 private:
-	color* const pixels;
+	Color* const pixels;
 
 	inline int ind(int x, int y) const;
 
@@ -22,7 +20,7 @@ public:
 	
 	~image();
 
-	inline color& pixel_at(int x, int y) const { return pixels[ind(x, y)]; }
+	inline Color& pixel_at(int x, int y) const { return pixels[ind(x, y)]; }
 
 };
 

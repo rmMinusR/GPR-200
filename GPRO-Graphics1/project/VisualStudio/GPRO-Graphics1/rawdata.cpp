@@ -16,8 +16,6 @@ int3::int3(float _x, float _y, float _z) : int3((int)_x, (int)_y, (int)_z)
 int3::int3(const int3& cpy) : x(cpy.x), y(cpy.y), z(cpy.z)
 { }
 
-int3::operator float3() const { return float3((float)x, (float)y, (float)z); }
-
 int3& int3::operator=(const int3& rhs)
 {
 	this->x = rhs.x;
@@ -163,13 +161,3 @@ inline float4 float4::operator/(const float& rhs) const
 }
 
 #pragma endregion float4
-
-float3 operator+(const int3& a, const float3& b)
-{
-	return float3(a.x+b.x, a.y+b.y, a.z+b.z);
-}
-
-float3 operator+(const float3& a, const int3& b)
-{
-	return float3(a.x+b.x, a.y+b.y, a.z+b.z);
-}

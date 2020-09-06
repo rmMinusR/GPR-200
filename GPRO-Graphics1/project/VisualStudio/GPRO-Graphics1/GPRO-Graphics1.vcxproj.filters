@@ -27,10 +27,13 @@
     <ClCompile Include="GPRO-Graphics1.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\include\rawdata.cpp">
+    <ClCompile Include="image.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="image.cpp">
+    <ClCompile Include="rawdata.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="color.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -44,7 +47,10 @@
     <ClInclude Include="..\..\..\include\pointlesskw.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="image.hpp">
+    <ClInclude Include="..\..\..\include\image.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\color.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

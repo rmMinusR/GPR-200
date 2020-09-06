@@ -17,3 +17,12 @@
 #ifndef __cplusplus
 #error "Project is C++ only. Does NOT support C." 
 #endif
+
+#include "color.hpp"
+
+int main() {
+    Color c1 = Color::FromHSV(0, 1, 2);
+    Color c2 = Color::FromRGB(1, 2, 3);
+
+    Color c3 = c1 + c2;
+}

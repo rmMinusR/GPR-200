@@ -28,21 +28,22 @@
 
 #include "pointlesskw.h"
 
-struct float3; //TODO change int#, float# to template poly<T>(#), with using aliases.
+//TODO add int2, float2
+
+struct float3;
 
 //Used primarily for RGB color data.
 struct int3 {
-public:
+protected:
 	//Member variables
 	int x, y, z;
 
 	explicit int3(); //Zero ctor
 	explicit int3(int _x, int _y, int _z); //Component ctor
-	explicit int3(float _x, float _y, float _z);
+	explicit int3(float _x, float _y, float _z); //Conversion-component ctor
 	implicit int3(const int3& cpy); //Copy ctor
 
-	operator float3() const;
-
+public:
 	inline int3 operator+(const int3& rhs) const;
 	inline int3 operator-(const int3& rhs) const;
 	inline int3 operator*(const float& rhs) const; //Mul by scalar
@@ -59,7 +60,7 @@ public:
 
 //Used primarily for vectors in Euclidean space, and fresh RGB color data.
 struct float3 {
-public:
+protected:
 	//Member variables
 	float x, y, z;
 
@@ -67,10 +68,7 @@ public:
 	explicit float3(float _x, float _y, float _z); //Component ctor
 	implicit float3(const float3& cpy); //Copy ctor
 
-	inline operator int3() const { return int3(x, y, z); }
-	inline friend float3 operator+(const float3& a, const int3& b);
-	inline friend float3 operator+(const int3& a, const float3& b);
-
+public:
 	inline float3 operator+(const float3& rhs) const;
 	inline float3 operator-(const float3& rhs) const;
 	inline float3 operator*(const float& rhs) const; //Mul by scalar
@@ -87,7 +85,7 @@ public:
 
 //Used primarily for quaternion rotations, and fresh RGBA color data.
 struct float4 {
-public:
+protected:
 	//Member variables
 	float w, x, y, z;
 
@@ -95,6 +93,7 @@ public:
 	explicit float4(float _w, float _x, float _y, float _z); //Component ctor
 	implicit float4(const float4& cpy); //Copy ctor
 
+public:
 	inline float4 operator+(const float4& rhs) const;
 	inline float4 operator-(const float4& rhs) const;
 	inline float4 operator*(const float& rhs) const; //Mul by scalar

@@ -10,7 +10,7 @@ inline int image::ind(int x, int y) const
 
 image::image(int w, int h) : image(w, h, DEFAULT_COLOR_SPACE) {}
 
-image::image(int w, int h, int c) : width(w), height(h), color_space(c), pixels(new color[w * h])
+image::image(int w, int h, int c) : width(w), height(h), color_space(c), pixels(new Color[w * h])
 { }
 
 image::~image()
