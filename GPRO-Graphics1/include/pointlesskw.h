@@ -18,7 +18,7 @@
 
 /*
 	pointlesskw.h
-	Keywords that make sense to a C# programmer but have no meaning in C++.
+	Keywords that make sense to a C# programmer but have no real meaning in C++ as this is their implied default state.
 */
 
 #define implicit

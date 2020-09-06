@@ -19,6 +19,11 @@
 /*
 	rawdata.h
 	Contains basic boilerplate data types such as float4 and int3.
+	These are vaguely based on:
+	 - `vec3` by Dan Buckstein in his starter framework.
+	 - `vec3` by Peter Shirley in `Ray Tracing in One Weekend`
+	 - `Vector3` by myself, in `rm's Bukkit Common API` (private codebase available upon request)
+	 - `Vector` by Unity Technologies
 */
 
 #include "pointlesskw.h"
