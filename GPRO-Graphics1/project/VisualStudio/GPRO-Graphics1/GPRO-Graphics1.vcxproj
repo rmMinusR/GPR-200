@@ -159,6 +159,7 @@
     <ClCompile Include="GPRO-Graphics1.cpp" />
     <ClCompile Include="image.cpp" />
     <ClCompile Include="rawdata.cpp" />
+    <ClCompile Include="vector.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\include\color.hpp" />
@@ -166,7 +167,7 @@
     <ClInclude Include="..\..\..\include\image.hpp" />
     <ClInclude Include="..\..\..\include\pointlesskw.h" />
     <ClInclude Include="..\..\..\include\rawdata.hpp" />
-    <ClInclude Include="vector.hpp" />
+    <ClInclude Include="..\..\..\include\vector.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\include\gpro\gpro-math\_inl\gproVector.inl" />

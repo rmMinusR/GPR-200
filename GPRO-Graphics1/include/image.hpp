@@ -2,25 +2,28 @@
 
 #include "color.hpp"
 
-class image
+#include <ostream>
+
+class Image final
 {
 private:
 	Color* const pixels;
 
-	inline int ind(int x, int y) const;
+	inline int _ind(int x, int y) const;
 
 public:
 	const int width;
 	const int height;
-	const int color_space;
+	const float color_space;
 	static constexpr int DEFAULT_COLOR_SPACE = 255;
 
-	image(int w, int h);
-	image(int w, int h, int c);
+	Image(const int& w, const int& h);
+	Image(const int& w, const int& h, const float& c);
 	
-	~image();
+	~Image();
 
-	inline Color& pixel_at(int x, int y) const { return pixels[ind(x, y)]; }
+	inline Color& pixel_at(int x, int y) const { return pixels[_ind(x, y)]; }
 
+	void write_to(std::ostream& out);
 };
 

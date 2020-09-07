@@ -70,9 +70,10 @@ protected:
 
 	explicit float3(); //Zero ctor
 	explicit float3(float _x, float _y, float _z); //Component ctor
-	implicit float3(const float3& cpy); //Copy ctor
 
 public:
+	implicit float3(const float3& cpy); //Copy ctor
+
 	inline float3 operator-() const; //Unary negation
 	inline float3 operator+(const float3& rhs) const;
 	inline float3 operator-(const float3& rhs) const;

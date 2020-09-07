@@ -20,7 +20,7 @@
 
 #include "color.hpp"
 
-int main() {
+int main(const int argc, const char* const argv[]) {
     Color c1 = Color::FromRGB(1, 2, 3);
     Color c2 = Color::FromHSV(2, 3, 4);
     float3 dummy = c1 + c2;

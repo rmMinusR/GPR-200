@@ -22,41 +22,31 @@
 	Modified because: ____________
 */
 
-
-#include <stdio.h>
-#include <stdlib.h>
-
-#include "vector.hpp"
-using vec3 = Vector3;
-
-void testVector()
-{
-	// test array vector initializers and functions
 #ifndef __cplusplus
-	float3 av, bv, cv, dv;
-	vec3default(av);								// -> a = (0, 0, 0)
-	vec3init(bv, 1.0f, 2.0f, 3.0f);					// -> b = (1, 2, 3)
-	vec3copy(dv, vec3init(cv, 4.0f, 5.0f, 6.0f));	// -> d = c = (4, 5, 6)
-	vec3copy(av, dv);								// a = d			-> a = (4, 5, 6)
-	vec3add(dv, bv);								// d += b			-> d = (4 + 1, 5 + 2, 6 + 3) = (5, 7, 9)
-	vec3sum(dv, bv, bv);							// d = b + b		-> d = (1 + 1, 2 + 2, 3 + 3) = (2, 4, 6)
-	vec3add(vec3sum(dv, cv, bv), av);				// d = c + b + a	-> d = (4 + 1 + 4, 5 + 2 + 5, 6 + 3 + 6) = (9, 12, 15)
-#else
-	// test all constructors and operators
-	vec3 a, b(1.0f, 2.0f, 3.0f), c, d(c);		// default; init; copy array; copy
-	a = d;											// assign						-> a = (4, 5, 6)
-	d += b;											// add assign					-> d = (5, 7, 9)
-	d = b + b;										// sum, init, assign			-> d = (2, 4, 6)
-	d = c + b + a;									// sum, init, sum, init, assign	-> d = (9, 12, 15)
-#endif	// __cplusplus
-}
+#error "Project is C++ only. Does NOT support C." 
+#endif
+
+#include "image.hpp"
+#include "color.hpp"
+
+#include <iostream>
+#include <fstream>
+#include <string>
 
 int main(int const argc, char const* const argv[])
 {
-	testVector();
+    Image img(10, 10, 10);
 
-	
+    for (int x = 0; x < img.width; x++) for (int y = 0; y < img.height; y++) {
+        img.pixel_at(x, y) = Color::FromRGB((float)x, (float)y, 0, img.color_space);
+    }
 
-	printf("\n\n");
-	system("pause");
+    std::cout << "Enter save file: ";
+    std::string tmp; getline(std::cin, tmp);
+    std::ofstream fout(tmp);
+
+    img.write_to(fout);
+
+    fout.flush();
+    fout.close();
 }
