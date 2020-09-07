@@ -17,13 +17,17 @@
 */
 
 /*
-	rawdata.h
-	Contains basic boilerplate data types such as float4 and int3.
-	These are vaguely based on:
-	 - `vec3` by Dan Buckstein in his starter framework.
+	rawdata.hpp
+	
+	Contains basic boilerplate data types such as float4 and int3. All member
+	variables are given deliberately vague names, which are accessed by
+	reference as RGB or XYZ in children.
+	
+	These are loosely based on:
+	 - `vec3` by Dan Buckstein in his starter framework
 	 - `vec3` by Peter Shirley in `Ray Tracing in One Weekend`
 	 - `Vector3` by myself, in `rm's Bukkit Common API` (private codebase available upon request)
-	 - `Vector` by Unity Technologies
+	 - `Vector` and `Quaternion` by Unity Technologies
 */
 
 #include "pointlesskw.h"
@@ -36,7 +40,7 @@ struct float3;
 struct int3 {
 protected:
 	//Member variables
-	int x, y, z;
+	int val0, val1, val2;
 
 	explicit int3(); //Zero ctor
 	explicit int3(int _x, int _y, int _z); //Component ctor
@@ -62,13 +66,14 @@ public:
 struct float3 {
 protected:
 	//Member variables
-	float x, y, z;
+	float val0, val1, val2;
 
 	explicit float3(); //Zero ctor
 	explicit float3(float _x, float _y, float _z); //Component ctor
 	implicit float3(const float3& cpy); //Copy ctor
 
 public:
+	inline float3 operator-() const; //Unary negation
 	inline float3 operator+(const float3& rhs) const;
 	inline float3 operator-(const float3& rhs) const;
 	inline float3 operator*(const float& rhs) const; //Mul by scalar
@@ -87,7 +92,7 @@ public:
 struct float4 {
 protected:
 	//Member variables
-	float w, x, y, z;
+	float val0, val1, val2, val3;
 
 	explicit float4(); //Zero ctor
 	explicit float4(float _w, float _x, float _y, float _z); //Component ctor

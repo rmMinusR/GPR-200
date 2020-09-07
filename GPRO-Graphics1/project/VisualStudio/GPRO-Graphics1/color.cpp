@@ -1,5 +1,30 @@
 #include "color.hpp"
 
+/*
+	Copyright 2020 Robert S. Christensen
+
+	Licensed under the Apache License, Version 2.0 (the "License");
+	you may not use this file except in compliance with the License.
+	You may obtain a copy of the License at
+
+		http://www.apache.org/licenses/LICENSE-2.0
+
+	Unless required by applicable law or agreed to in writing, software
+	distributed under the License is distributed on an "AS IS" BASIS,
+	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+	See the License for the specific language governing permissions and
+	limitations under the License.
+*/
+
+/*
+	color.cpp
+
+	Defines the Color class, which can use 1.0 (normalized) colors
+	and 255.0 (default serialized) color scales alike. Color can work with
+	all float3 operators, as well as providing color-specific utility getters
+	for properties like hue, saturation, and value.
+*/
+
 #include <cmath>
 
 //TODO move to separate file
@@ -125,13 +150,34 @@ Color Color::RemapScale(float newScale)
 {
 	float rescaleFactor = newScale * _scale;
 	return Color(r*rescaleFactor, g*rescaleFactor, b*rescaleFactor, newScale); //Stack-allocated. TODO Is this OK?
-} 
+}
 
-Color::Color(const float3& base) : float3(base), r{ x }, g{ y }, b{ z }, _scale{ 1.0 }
+Color& Color::operator=(const float3& _rhs)
+{
+	//UNSAFE! But gives us access to internal values. Just don't try any
+	//function calls, there's no telling what will happen.
+	const Color* const rhs = reinterpret_cast<const Color* const>(&_rhs);
+
+	this->val0 = rhs->val0;
+	this->val1 = rhs->val1;
+	this->val2 = rhs->val2;
+	return *this;
+}
+
+Color& Color::operator=(const Color& rhs)
+{
+	this->val0 = rhs.val0;
+	this->val1 = rhs.val1;
+	this->val2 = rhs.val2;
+	return *this;
+}
+
+
+Color::Color(const float3& base) : float3(base), r{ val0 }, g{ val1 }, b{ val2 }, _scale{ 1.0 }
 { }
 
 Color::Color() : Color(0, 0, 0, 1)
 { }
 
-Color::Color(const float& _r, const float &_g, const float& _b, const float& _scale) : float3(_r, _g, _b), r{ x }, g{ y }, b{ z }, _scale{ _scale }
+Color::Color(const float& _r, const float &_g, const float& _b, const float& _scale) : float3(_r, _g, _b), r{ val0 }, g{ val1 }, b{ val2 }, _scale{ _scale }
 { }

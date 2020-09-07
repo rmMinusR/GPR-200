@@ -53,6 +53,9 @@
     <ClInclude Include="..\..\..\include\color.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="vector.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\include\gpro\gpro-math\_inl\gproVector.inl">

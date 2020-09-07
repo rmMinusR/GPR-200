@@ -25,4 +25,5 @@ int main() {
     Color c2 = Color::FromHSV(2, 3, 4);
     float3 dummy = c1 + c2;
     Color actualColorSum = dummy*2.4f;
+    c1 = actualColorSum;
 }
