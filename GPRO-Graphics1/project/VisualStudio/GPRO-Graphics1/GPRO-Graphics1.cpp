@@ -21,8 +21,8 @@
 #include "color.hpp"
 
 int main() {
-    Color c1 = Color::FromHSV(0, 1, 2);
-    Color c2 = Color::FromRGB(1, 2, 3);
-
-    Color c3 = c1 + c2;
+    Color c1 = Color::FromRGB(1, 2, 3);
+    Color c2 = Color::FromHSV(2, 3, 4);
+    float3 dummy = c1 + c2;
+    Color actualColorSum = dummy*2.4f;
 }
