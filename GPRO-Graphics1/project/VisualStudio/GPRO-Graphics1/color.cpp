@@ -136,7 +136,7 @@ float Color::GetValue() const
 	return most;
 }
 
-inline float Color::GetScale() const
+float Color::GetScale() const
 {
 	return _scale;
 }

@@ -22,29 +22,30 @@ void Image::write_to(std::ostream& out)
 {
 	if (!out.good()) throw std::invalid_argument("File is not open!");
 
-	//Allow binary write mode
-	bool use_binary = true;// color_space < 256;
+	//Allow binary write mode (doesn't work!)
+	//bool use_binary = false;// color_space < 256;
 
 	//Write header
 
-	out << (use_binary?"P6":"P3") << " ";
+	//out << (use_binary?"P6":"P3") << " ";
+	out << "P3" << " ";
 	out << width << " " << height << " ";
 	out << color_space << " ";
 
 	//Write data
 
-	if(use_binary) {
+	/*if(use_binary) {
 		//Binary write mode
 		for (int x = 0; x < width; x++) for (int y = 0; y < height; y++) {
 			Color c = pixel_at(x, y);
 			//Print using 2-byte 565
-			int r = (int)(c.r*color_space/c.GetScale());
-			int g = (int)(c.g*color_space/c.GetScale());
-			int b = (int)(c.b*color_space/c.GetScale());
-			out << (char)r << (char)g << (char)b;
+			char r = (int)(c.r); if (is_illegal(r)) r--;
+			char g = (int)(c.g); if (is_illegal(g)) g--;
+			char b = (int)(c.b); if (is_illegal(b)) b--;
+			out << r << g << b;
 		}
 	}
-	else {
+	else /**/{
 		//ASCII write mode, uses more space but has unbounded maximum color space
 		for (int x = 0; x < width; x++) for (int y = 0; y < height; y++) {
 			Color& c = pixel_at(x, y);

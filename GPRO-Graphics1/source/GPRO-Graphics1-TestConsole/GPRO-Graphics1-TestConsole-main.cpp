@@ -35,7 +35,7 @@
 
 int main(int const argc, char const* const argv[])
 {
-    Image img(10, 10, 10);
+    Image img(300, 300, 300);
 
     for (int x = 0; x < img.width; x++) for (int y = 0; y < img.height; y++) {
         img.pixel_at(x, y) = Color::FromRGB((float)x, (float)y, 0, img.color_space);

@@ -10,6 +10,7 @@ private:
 	Color* const pixels;
 
 	inline int _ind(int x, int y) const;
+	static constexpr bool is_illegal(const char& c) { return c == 11; }
 
 public:
 	const int width;

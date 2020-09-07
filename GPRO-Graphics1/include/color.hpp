@@ -42,7 +42,7 @@ public:
 	float GetSaturation() const;
 	float GetValue() const;
 
-	inline float GetScale() const;
+	float GetScale() const;
 	inline void SetScale(float newScale); //Only changes scale.
 	Color RemapScale(float newScale); //Changes scale, and remaps color values to match.
 
