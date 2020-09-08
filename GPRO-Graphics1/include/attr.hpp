@@ -19,9 +19,15 @@
 /*
 	attr.hpp
 
-	Gives quick and easy access to inline variable-specific getters and setters,
-	without any clunky-looking calls to GetX() or SetX(). Heavily based on
-	the Attribute feature of C#.
+	Gives quick, easy, intuitive access to inline variable-specific getters
+	and setters, without any clunky-looking calls to GetX() or SetX().
+	Heavily based on the Attribute feature of C#.
+
+	Ideally this we would offload this to the compiler using template
+	metaprogramming and/or macros, but this is the next best thing.
+
+	Also: Due to template-linker badness, everything must be declared and
+	defined in the same place, so we can't split it into attr.cpp
 */
 
 #include <functional>
