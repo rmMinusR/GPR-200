@@ -39,7 +39,16 @@ int getter(int& v) { return v; }
 
 int main(int const argc, char const* const argv[])
 {
-    attr<int> test{0, getter, setter};
+    attr<int> test{getter, setter};
+
+    attr<int> test2{
+        attr_get(int) {
+            return _state;
+        },
+        attr_set(int) {
+            _state = value;
+        }
+    };
 
     std::cout << (int)test << std::endl;
     test = 0;
