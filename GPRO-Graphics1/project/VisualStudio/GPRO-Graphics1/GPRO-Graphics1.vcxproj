@@ -112,6 +112,7 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(GPRO_SDK)include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -162,10 +163,12 @@
     <ClCompile Include="vector.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\include\attr.hpp" />
     <ClInclude Include="..\..\..\include\color.hpp" />
     <ClInclude Include="..\..\..\include\image.hpp" />
     <ClInclude Include="..\..\..\include\pointlesskw.h" />
     <ClInclude Include="..\..\..\include\rawdata.hpp" />
+    <ClInclude Include="..\..\..\include\ray.hpp" />
     <ClInclude Include="..\..\..\include\vector.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

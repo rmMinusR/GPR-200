@@ -1,5 +1,5 @@
 /*
-   Copyright 2020 Daniel S. Buckstein
+   Copyright 2020 Daniel S. Buckstein and Robert S. Christensen
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -15,11 +15,11 @@
 */
 
 /*
-	GPRO-Graphics1-TestConsole-main.c/.cpp
+	GPRO-Graphics1-TestConsole-main.cpp
 	Main entry point source file for a Windows console application.
 
-	Modified by: ____________
-	Modified because: ____________
+	Modified by: Robert Christensen
+	Modified because: The directions said to
 */
 
 #ifndef __cplusplus
@@ -32,9 +32,22 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <attr.hpp>
+
+void setter(int& v, const int& tv) { v = tv+1; }
+int getter(int& v) { return v; }
 
 int main(int const argc, char const* const argv[])
 {
+    attr<int> test{0, getter, setter};
+
+    std::cout << (int)test << std::endl;
+    test = 0;
+    std::cout << (int)test << std::endl;
+    test = 2;
+    std::cout << (int)test << std::endl;
+
+    /*
     Image img(300, 300, 300);
 
     for (int x = 0; x < img.width; x++) for (int y = 0; y < img.height; y++) {
@@ -49,4 +62,7 @@ int main(int const argc, char const* const argv[])
 
     fout.flush();
     fout.close();
+    */
+
+    return 0;
 }

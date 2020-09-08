@@ -34,9 +34,6 @@
 
 //Data IO
 
-int3::int3() : int3(0, 0, 0)
-{ }
-
 int3::int3(int _x, int _y, int _z) : val0(_x), val1(_y), val2(_z)
 { }
 
@@ -89,9 +86,6 @@ inline int3 int3::operator/(const float& rhs) const
 #pragma region float3
 
 //Data IO
-
-float3::float3() : val0(0), val1(0), val2(0)
-{ }
 
 float3::float3(float _x, float _y, float _z) : val0(_x), val1(_y), val2(_z)
 { }
@@ -147,9 +141,6 @@ inline float3 float3::operator/(const float& rhs) const
 #pragma region float4
 
 //Data IO
-
-float4::float4() : val0(0), val1(0), val2(0), val3(0)
-{ }
 
 float4::float4(float _w, float _x, float _y, float _z) : val0(_w), val1(_x), val2(_y), val3(_z)
 { }

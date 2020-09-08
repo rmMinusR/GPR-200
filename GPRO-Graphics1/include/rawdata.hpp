@@ -42,7 +42,7 @@ protected:
 	//Member variables
 	int val0, val1, val2;
 
-	explicit int3(); //Zero ctor
+	explicit int3() = default; //Zero ctor
 	explicit int3(int _x, int _y, int _z); //Component ctor
 	explicit int3(float _x, float _y, float _z); //Conversion-component ctor
 	implicit int3(const int3& cpy); //Copy ctor
@@ -68,7 +68,7 @@ protected:
 	//Member variables
 	float val0, val1, val2;
 
-	explicit float3(); //Zero ctor
+	explicit float3() = default; //Zero ctor
 	explicit float3(float _x, float _y, float _z); //Component ctor
 
 public:
@@ -95,7 +95,7 @@ protected:
 	//Member variables
 	float val0, val1, val2, val3;
 
-	explicit float4(); //Zero ctor
+	explicit float4() = default; //Zero ctor
 	explicit float4(float _w, float _x, float _y, float _z); //Component ctor
 	implicit float4(const float4& cpy); //Copy ctor
 
