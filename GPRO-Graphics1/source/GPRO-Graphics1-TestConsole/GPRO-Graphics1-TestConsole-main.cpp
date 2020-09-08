@@ -28,11 +28,11 @@
 
 #include "image.hpp"
 #include "color.hpp"
+#include "attr.inl"
 
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <attr.hpp>
 
 void setter(int& v, const int& tv) { v = tv+1; }
 int getter(int& v) { return v; }

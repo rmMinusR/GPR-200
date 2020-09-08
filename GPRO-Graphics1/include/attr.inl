@@ -17,13 +17,13 @@
 */
 
 /*
-	attr.hpp
+	attr.inl
 
 	Gives quick, easy, intuitive access to inline variable-specific getters
 	and setters, without any clunky-looking calls to GetX() or SetX().
 	Heavily based on the Attribute feature of C#.
 
-	Ideally this we would offload this to the compiler using template
+	Ideally we would offload this to the compiler using template
 	metaprogramming and/or macros, but this is the next best thing.
 
 	Also: Due to template-linker badness, everything must be declared and
@@ -51,22 +51,22 @@ public:
 	//Getter or setter can be null; if so, uses the internal default.
 	attr(const T& v, const getter_t& _g = nullptr, const setter_t& _s = nullptr) :
 		value{ v },
-		getter{ _g ? _g : std::bind(&attr<T>::_dget, this, std::placeholders::_1) },
+		getter{ _g ? _g : std::bind(&attr<T>::_dget, this, std::placeholders::_1                       ) },
 		setter{ _s ? _s : std::bind(&attr<T>::_dset, this, std::placeholders::_1, std::placeholders::_2) }
 	{}
 	
 	//Attributes shouldn't be copyable.
 	attr(const attr<T>&) = delete;
 
-	//Assigning from another Attribute is both a getter and setter call
+	//Assigning from another attribute is both a getter and setter call
 	inline void operator=(const attr<T>& rhs) { operator=((T)rhs); }
 
 	//Setter override
-	inline attr<T> operator=(T rhs) {
+	inline attr<T>& operator=(T rhs) {
 		setter(this->value, rhs);
 		return *this;
 	}
-
+	
 	//Getter override
 	inline operator T() {
 		return getter(this->value);

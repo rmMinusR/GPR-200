@@ -19,14 +19,8 @@
 #endif
 
 #include "color.hpp"
-#include "attr.hpp"
+#include "attr.inl"
 
 int main(const int argc, const char* const argv[]) {
-    attr<int> intAttr{ 1, nullptr, nullptr };
-
-    Color c1 = Color::FromRGB(1, 2, 3);
-    Color c2 = Color::FromHSV(2, 3, 4);
-    float3 dummy = c1 + c2;
-    Color actualColorSum = dummy*2.4f;
-    c1 = actualColorSum;
+    
 }
