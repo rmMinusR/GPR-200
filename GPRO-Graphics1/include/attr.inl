@@ -52,7 +52,7 @@
 
 #include <functional>
 
-#ifndef ATTR_SHORTCUTS
+#ifdef ATTR_SHORTCUTS
 
 #ifndef attr_get
 #define attr_get(T) [](T& _state) mutable -> T
@@ -68,6 +68,52 @@
 //constexpr set(capture_args) [capture_args](T& _state, const T& value) mutable -> void;
 
 template<typename T>
+class const_attr final {
+private:
+	T* const value_ptr;
+	bool using_internal_value;
+
+	typedef std::function<T(T&)> getter_t;
+	const getter_t _getter;
+
+	T default_get(T& internal_value) { return internal_value; }
+
+	//Creates an internal value, and marks it for deletion upon dtor call
+	const_attr(const getter_t& getter = nullptr) :
+		using_internal_value{ true },
+		value_ptr{ new T },
+		_getter{ getter ? getter : std::bind(&const_attr<T>::default_get, this, std::placeholders::_1) }
+	{}
+public:
+
+	//Getter or setter can be null; if so, uses the internal default.
+
+	//Creates an internal value, initializes it, then deletes it once done
+	const_attr(const T& initial_value, const getter_t& getter = nullptr) : const_attr(getter) { *value_ptr = initial_value; }
+
+	//Uses an external value. NOT RECOMMENDED.
+	const_attr(T* const state, const getter_t& getter = nullptr) :
+		using_internal_value{ false },
+		value_ptr{ state },
+		_getter{ getter ? getter : std::bind(&const_attr<T>::_dget, this, std::placeholders::_1) }
+	{}
+
+	//Attributes shouldn't be copyable.
+	const_attr(const const_attr<T>&) = delete;
+
+	//If we're using an internal value, clean up our mess!
+	~const_attr() { if (using_internal_value) delete value_ptr; }
+
+	//Disable assignment
+	inline void operator=(const const_attr<T>& rhs) = delete;
+
+	//Getter override
+	inline operator T() {
+		return _getter(*value_ptr);
+	}
+};
+
+template<typename T>
 class attr final {
 private:
 	T* const value_ptr; //Depending on getter and setter, might not even be used!
@@ -80,8 +126,8 @@ private:
 	const setter_t _setter;
 
 	//Internal defaults
-	T    _dget(T& internal_value) { return internal_value; }
-	void _dset(T& internal_value, const T& rhs) { internal_value = rhs; }
+	T    default_get(T& internal_value) { return internal_value; }
+	void default_set(T& internal_value, const T& rhs) { internal_value = rhs; }
 
 public:
 
@@ -91,8 +137,8 @@ public:
 	attr(const getter_t& getter = nullptr, const setter_t& setter = nullptr) :
 		using_internal_value{ true },
 		value_ptr{ new T },
-		_getter{ getter ? getter : std::bind(&attr<T>::_dget, this, std::placeholders::_1) },
-		_setter{ setter ? setter : std::bind(&attr<T>::_dset, this, std::placeholders::_1, std::placeholders::_2) }
+		_getter{ getter ? getter : std::bind(&attr<T>::default_get, this, std::placeholders::_1) },
+		_setter{ setter ? setter : std::bind(&attr<T>::default_set, this, std::placeholders::_1, std::placeholders::_2) }
 	{}
 
 	//Creates an internal value, initializes it, then deletes it once done
@@ -102,8 +148,8 @@ public:
 	attr(T* const state, const getter_t& getter = nullptr, const setter_t& setter = nullptr) :
 		using_internal_value{ false },
 		value_ptr{ state },
-		_getter{ getter ? getter : std::bind(&attr<T>::_dget, this, std::placeholders::_1                       ) },
-		_setter{ setter ? setter : std::bind(&attr<T>::_dset, this, std::placeholders::_1, std::placeholders::_2) }
+		_getter{ getter ? getter : std::bind(&attr<T>::default_get, this, std::placeholders::_1                       ) },
+		_setter{ setter ? setter : std::bind(&attr<T>::default_set, this, std::placeholders::_1, std::placeholders::_2) }
 	{}
 	
 	//Uses an external value, and assigns to it. NOT RECOMMENDED.
@@ -127,5 +173,9 @@ public:
 	//Getter override
 	inline operator T() {
 		return _getter(*value_ptr);
+	}
+
+	inline operator const_attr<T>() {
+		return const_attr<T>(*value_ptr, _getter);
 	}
 };
