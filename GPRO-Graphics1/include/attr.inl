@@ -68,7 +68,7 @@
 //constexpr set(capture_args) [capture_args](T& _state, const T& value) mutable -> void;
 
 template<typename T>
-class const_attr final {
+class readonly_attr final {
 private:
 	T* const value_ptr;
 	bool using_internal_value;
@@ -78,34 +78,34 @@ private:
 
 	T default_get(T& internal_value) { return internal_value; }
 
-	//Creates an internal value, and marks it for deletion upon dtor call
-	const_attr(const getter_t& getter = nullptr) :
-		using_internal_value{ true },
-		value_ptr{ new T },
-		_getter{ getter ? getter : std::bind(&const_attr<T>::default_get, this, std::placeholders::_1) }
-	{}
 public:
-
 	//Getter or setter can be null; if so, uses the internal default.
 
+	//Creates an internal value, and marks it for deletion upon dtor call
+	readonly_attr(const getter_t& getter = nullptr) :
+		using_internal_value{ true },
+		value_ptr{ new T },
+		_getter{ getter ? getter : std::bind(&readonly_attr<T>::default_get, this, std::placeholders::_1) }
+	{}
+
 	//Creates an internal value, initializes it, then deletes it once done
-	const_attr(const T& initial_value, const getter_t& getter = nullptr) : const_attr(getter) { *value_ptr = initial_value; }
+	readonly_attr(const T& initial_value, const getter_t& getter = nullptr) : readonly_attr(getter) { *value_ptr = initial_value; }
 
 	//Uses an external value. NOT RECOMMENDED.
-	const_attr(T* const state, const getter_t& getter = nullptr) :
+	readonly_attr(T* const state, const getter_t& getter = nullptr) :
 		using_internal_value{ false },
 		value_ptr{ state },
-		_getter{ getter ? getter : std::bind(&const_attr<T>::_dget, this, std::placeholders::_1) }
+		_getter{ getter ? getter : std::bind(&readonly_attr<T>::_dget, this, std::placeholders::_1) }
 	{}
 
 	//Attributes shouldn't be copyable.
-	const_attr(const const_attr<T>&) = delete;
+	readonly_attr(const readonly_attr<T>&) = delete;
 
 	//If we're using an internal value, clean up our mess!
-	~const_attr() { if (using_internal_value) delete value_ptr; }
+	~readonly_attr() { if (using_internal_value) delete value_ptr; }
 
 	//Disable assignment
-	inline void operator=(const const_attr<T>& rhs) = delete;
+	inline void operator=(const readonly_attr<T>& rhs) = delete;
 
 	//Getter override
 	inline operator T() {
@@ -172,7 +172,7 @@ public:
 		return _getter(*value_ptr);
 	}
 
-	inline operator const_attr<T>() {
-		return const_attr<T>(*value_ptr, _getter);
+	inline operator readonly_attr<T>() {
+		return readonly_attr<T>(*value_ptr, _getter);
 	}
 };

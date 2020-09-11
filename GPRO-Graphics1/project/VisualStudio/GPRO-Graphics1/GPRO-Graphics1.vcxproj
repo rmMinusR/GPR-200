@@ -156,6 +156,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="camera.cpp" />
     <ClCompile Include="color.cpp" />
     <ClCompile Include="GPRO-Graphics1.cpp" />
     <ClCompile Include="image.cpp" />
@@ -165,6 +166,7 @@
     <ClCompile Include="vector.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\include\camera.hpp" />
     <ClInclude Include="..\..\..\include\color.hpp" />
     <ClInclude Include="..\..\..\include\image.hpp" />
     <ClInclude Include="..\..\..\include\matrix.hpp" />

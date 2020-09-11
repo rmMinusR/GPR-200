@@ -26,59 +26,38 @@
 #error "Project is C++ only. Does NOT support C." 
 #endif
 
+#include "camera.hpp"
 #include "image.hpp"
-#include "color.hpp"
+#include "raytrace.hpp"
 
-#define ATTR_SHORTCUTS
-#include "attr.inl"
-
+#include <vector>
 #include <iostream>
 #include <fstream>
 #include <string>
 
-void setter(int& v, const int& tv) { v = tv+1; }
-int getter(int& v) { return v; }
-
 int main(int const argc, char const* const argv[])
 {
-    attr<int> test{getter, setter};
+    Camera cam(640, 480, 135.0f);
 
-    attr<int> test2{
-        attr_get(int) {
-            return _state;
-        },
-        attr_set(int) {
-            _state = value;
-        }
-    };
+    //Must be allocated on heap for polymorphism
+    std::vector<Traceable*> objects;
+    objects.push_back(new Sphere(Vector3::forward(), 0.5f));
 
-    const_attr<int> test3{
-        3,
-        attr_get(int) {
-            return _state++;
-        }
-    };
+    Image rendered = cam.render(objects);
 
-    std::cout << (int)test3 << std::endl;
-    std::cout << (int)test3 << std::endl;
-    std::cout << (int)test3 << std::endl;
+    //Release objects
+    for (int i = 0; i < objects.size(); i++) delete objects[i];
+    objects.clear();
 
-    /*
-    Image img(300, 300, 300);
-
-    for (int x = 0; x < img.width; x++) for (int y = 0; y < img.height; y++) {
-        img.pixel_at(x, y) = Color::FromRGB((float)x, (float)y, 0, img.color_space);
-    }
-
+    //Write to (user-specified) file
     std::cout << "Enter save file: ";
     std::string tmp; getline(std::cin, tmp);
     std::ofstream fout(tmp);
 
-    img.write_to(fout);
+    rendered.write_to(fout);
 
     fout.flush();
     fout.close();
-    */
 
     return 0;
 }

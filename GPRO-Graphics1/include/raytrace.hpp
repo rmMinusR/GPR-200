@@ -3,6 +3,7 @@
 #include "vector.hpp"
 #include "ray.hpp"
 #include "matrix.hpp"
+#include "color.hpp"
 
 #define ATTR_SHORTCUTS
 #include "attr.inl"
@@ -13,8 +14,9 @@ struct trace_hit final {
 public:
 	Vector3 position;
 	Vector3 normal;
+	Color color;
 
-	trace_hit(const Vector3& pos, const Vector3& nrm) : position{ pos }, normal{ nrm } { }
+	trace_hit(const Vector3& pos, const Vector3& nrm, const Color& color) : position{ pos }, normal{ nrm }, color{ color } { }
 };
 
 class Traceable {

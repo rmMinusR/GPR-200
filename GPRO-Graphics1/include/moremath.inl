@@ -35,11 +35,11 @@ constexpr float fmap(const float& x, const float& lo1, const float& hi1, const f
 }
 
 //Solving quadratics
-struct quadratic_solution final {
+struct quadratic final {
 public:
 	float a, b, c;
 
-	quadratic_solution(const float& _a, const float& _b, const float& _c) : a(_a), b(_b), c(_c) { }
+	quadratic(const float& _a, const float& _b, const float& _c) : a(_a), b(_b), c(_c) { }
 
 	inline float discriminant() const {
 		return sq(b)-4*a*c;

@@ -22,21 +22,27 @@ std::vector<trace_hit> Sphere::trace(const Ray& ray)
 	Vector3& o = local_ray.origin;
 	Vector3& d = local_ray.direction;
 
-	quadratic_solution solve_for_t(sq(d.x)+sq(d.y)+sq(d.z), 2*(o.x*d.x+o.y*d.y+o.z*d.z), sq(o.x)+sq(o.y)+sq(o.z));
+	quadratic solve_for_t(sq(d.x)+sq(d.y)+sq(d.z), 2*(o.x*d.x+o.y*d.y+o.z*d.z), sq(o.x)+sq(o.y)+sq(o.z)+sq(radius));
 
 	//INTENTIONAL CASCADE OF PROGRAM FLOW
 	switch (solve_for_t.getSolutionCount()) {
 	case 2:
 		{
 			//Fetch solution #1 if it exists
-			Vector3 s1 = local_ray.GetByT(solve_for_t.getSolution(1));
-			out.push_back(trace_hit(s1, normal_at(s1)));
+			float t = solve_for_t.getSolution(1);
+			if (t > 0) { //Prevent rendering stuff behind the camera!
+				Vector3 s1 = local_ray.GetByT(t);
+				out.push_back(trace_hit(s1, normal_at(s1), Color::FromRGB(1, 0, 0)));
+			}
 		}
 	case 1:
 		{
 			//Fetch solution #0 if it exists
-			Vector3 s0 = local_ray.GetByT(solve_for_t.getSolution(0));
-			out.push_back(trace_hit(s0, normal_at(s0)));
+			float t = solve_for_t.getSolution(0);
+			if (t > 0) { //Prevent rendering stuff behind the camera!
+				Vector3 s0 = local_ray.GetByT(solve_for_t.getSolution(0));
+				out.push_back(trace_hit(s0, normal_at(s0), Color::FromRGB(1, 0, 0)));
+			}
 		}
 	}
 

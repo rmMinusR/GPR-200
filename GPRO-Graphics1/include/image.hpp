@@ -7,6 +7,7 @@
 class Image final
 {
 private:
+	//1D array dodges "pointer-to-pointer" badness
 	Color* const pixels;
 
 	inline int _ind(int x, int y) const;
@@ -24,7 +25,7 @@ public:
 	
 	~Image();
 
-	inline Color& pixel_at(int x, int y) const { return pixels[_ind(x, y)]; }
+	inline Color& pixel_at(int x, int y) const { return pixels[_ind(x, y)]; } //TODO replace with attr
 
 	void write_to(std::ostream& out);
 };
