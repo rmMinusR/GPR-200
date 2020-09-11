@@ -48,7 +48,7 @@ int main(int const argc, char const* const argv[])
     //on heap to correctly render (polymorphism must take effect)
     std::cout << "Initializing test objects..." << std::endl;
     std::vector<Traceable*> objects;
-    objects.push_back(new Sphere(Vector3::forward(), 0.5f));
+    objects.push_back(new Sphere(Vector3::forward()*2, 0.5f));
 
     std::cout << "Raytracing..." << std::endl;
     cam.render(objects);

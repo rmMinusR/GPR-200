@@ -16,11 +16,11 @@ inline Ray Camera::prepareTracer(const int& px_x, const int& px_y) const
 {
 	const float asp_ratio = float(viewport->width)/viewport->height;
 	
-	float ang_x = fmap((float)px_x, 0.0f, (float)viewport->width , -fov/2, fov/2);
-	float ang_y = fmap((float)px_y, 0.0f, (float)viewport->height, -fov/2, fov/2)*asp_ratio;
-	
-	float glob_x = tanf(ang_x);
-	float glob_y = tanf(ang_y);
+	float x_bound = tanf( fov / 2             );
+	float y_bound = tanf( fov / 2 / asp_ratio );
+
+	float glob_x = fmap(float(px_x), 0, float(viewport->width ), -x_bound, x_bound);
+	float glob_y = fmap(float(px_y), 0, float(viewport->height), -y_bound, y_bound);
 
 	return Ray(
 		Vector3::zero(),
@@ -39,13 +39,15 @@ void Camera::render(std::vector<Traceable*> objects) const
 			Ray ray = prepareTracer(x, y);
 
 			/*
-			//Trace for all objects
+			//Trace for all objects (ideal)
 			for (int i = 0; i < objects.size(); i++) {
 				std::vector<trace_hit> cur_hits = objects[i]->trace(ray);
 				//Copy all trace points into all_hits
 				for (int j = 0; j < cur_hits.size(); j++) all_hits.push_back(cur_hits[i]);
 			}
 			*/
+
+			//For test purposes there's only one object, this saves space (and my eyes)
 			all_hits = objects[0]->trace(ray);
 			
 			//*

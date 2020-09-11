@@ -158,7 +158,6 @@
   <ItemGroup>
     <ClCompile Include="camera.cpp" />
     <ClCompile Include="color.cpp" />
-    <ClCompile Include="GPRO-Graphics1.cpp" />
     <ClCompile Include="image.cpp" />
     <ClCompile Include="matrix.cpp" />
     <ClCompile Include="rawdata.cpp" />

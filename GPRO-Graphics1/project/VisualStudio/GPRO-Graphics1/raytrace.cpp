@@ -25,11 +25,7 @@ std::vector<trace_hit> Sphere::trace(const Ray& ray)
 	Vector3& o = local_ray.origin;
 	Vector3& d = local_ray.direction;
 
-	quadratic solve_for_t(sq(d.x)+sq(d.y)+sq(d.z), 2*(o.x*d.x+o.y*d.y+o.z*d.z), sq(o.x)+sq(o.y)+sq(o.z)+sq(radius));
-
-	if (solve_for_t.getSolutionCount() > 0) {
-		std::cout << solve_for_t.getSolutionCount() << std::endl;
-	}
+	quadratic solve_for_t(sq(d.x)+sq(d.y)+sq(d.z), 2*(o.x*d.x+o.y*d.y+o.z*d.z), sq(o.x)+sq(o.y)+sq(o.z)-sq(radius));
 
 	//INTENTIONAL CASCADE OF PROGRAM FLOW
 	switch (solve_for_t.getSolutionCount()) {
