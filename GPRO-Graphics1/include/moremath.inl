@@ -31,7 +31,7 @@ constexpr float sq(const float& x) { return x * x; }
 
 //Float range remap
 constexpr float fmap(const float& x, const float& lo1, const float& hi1, const float& lo2, const float& hi2) {
-	return (x-lo1)/(hi1-lo1)*(hi2/lo2)+lo2;
+	return (x-lo1)/(hi1-lo1)*(hi2-lo2)+lo2;
 }
 
 //Solving quadratics

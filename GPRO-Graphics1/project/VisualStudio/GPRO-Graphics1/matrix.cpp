@@ -157,7 +157,7 @@ matrix matrix::Translate(Vector3 vec)
 
 matrix::matrix(const matrix& cpy) :
 	size(cpy.size),
-	m{ new float[sq(size)] }
+	m{ new float[sq(cpy.size)] }
 {
 	for (int x = 0; x < size; x++) {
 		for (int y = 0; y < size; y++) {

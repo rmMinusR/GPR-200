@@ -2,13 +2,16 @@
 
 #include "color.hpp"
 
+#define ATTR_SHORTCUTS
+#include "attr.inl"
+
 #include <ostream>
 
 class Image final
 {
 private:
 	//1D array dodges "pointer-to-pointer" badness
-	Color* const pixels;
+	Color* pixels;
 
 	inline int _ind(int x, int y) const;
 	//Used only by binary output mode
@@ -25,7 +28,9 @@ public:
 	
 	~Image();
 
-	inline Color& pixel_at(int x, int y) const { return pixels[_ind(x, y)]; } //TODO replace with attr
+	inline Color& pixel_at(int x, int y) const {
+		return pixels[_ind(x, y)];
+	}
 
 	void write_to(std::ostream& out);
 };

@@ -15,7 +15,7 @@ Image::Image(const int& w, const int& h, const float& c) : width(w), height(h), 
 
 Image::~Image()
 {
-	delete[] pixels; //Should ideally set pixels to nullptr, but pixels should stay const.
+	if (pixels != nullptr) { delete[] pixels; pixels = nullptr; }
 }
 
 void Image::write_to(std::ostream& out)
@@ -35,7 +35,7 @@ void Image::write_to(std::ostream& out)
 	//Write data
 
 	/*if(use_binary) {
-		//Binary write mode
+		//Binary write mode (doesn't work)
 		for (int x = 0; x < width; x++) for (int y = 0; y < height; y++) {
 			Color c = pixel_at(x, y);
 			//Print using 2-byte 565
@@ -47,8 +47,8 @@ void Image::write_to(std::ostream& out)
 	}
 	else /**/{
 		//ASCII write mode, uses more space but has unbounded maximum color space
-		for (int x = 0; x < width; x++) for (int y = 0; y < height; y++) {
-			Color& c = pixel_at(x, y);
+		for (int y = 0; y < height; y++) for (int x = 0; x < width; x++) {
+			Color c = pixel_at(x, y).RemapScale(color_space);
 			out << (int)(c.r) << " " << (int)(c.g) << " " << (int)(c.b) << " ";
 		}
 	}

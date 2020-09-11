@@ -37,25 +37,32 @@
 
 int main(int const argc, char const* const argv[])
 {
-    Camera cam(640, 480, 135.0f);
+    std::cout << "Initializing camera..." << std::endl;
 
-    //Must be allocated on heap for polymorphism
+    Image viewport(160, 90, 255);
+    Camera cam(viewport, 135.0f);
+    
+    //Test objects. Anything passed to Camera::render must be allocated
+    //on heap to correctly render (polymorphism must take effect)
+    std::cout << "Initializing test objects..." << std::endl;
     std::vector<Traceable*> objects;
     objects.push_back(new Sphere(Vector3::forward(), 0.5f));
 
-    Image rendered = cam.render(objects);
+    std::cout << "Raytracing..." << std::endl;
+    cam.render(objects);
 
     //Release objects
+    std::cout << "Cleaning up test objects..." << std::endl;
     for (int i = 0; i < objects.size(); i++) delete objects[i];
     objects.clear();
 
     //Write to (user-specified) file
-    std::cout << "Enter save file: ";
+    std::cout << "Enter output file: ";
     std::string tmp; getline(std::cin, tmp);
     std::ofstream fout(tmp);
 
-    rendered.write_to(fout);
-
+    viewport.write_to(fout);
+    
     fout.flush();
     fout.close();
 

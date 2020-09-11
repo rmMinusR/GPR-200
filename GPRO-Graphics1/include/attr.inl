@@ -125,11 +125,11 @@ private:
 	const getter_t _getter;
 	const setter_t _setter;
 
+public:
+	
 	//Internal defaults
 	T    default_get(T& internal_value) { return internal_value; }
 	void default_set(T& internal_value, const T& rhs) { internal_value = rhs; }
-
-public:
 
 	//Getter or setter can be null; if so, uses the internal default.
 
@@ -152,8 +152,8 @@ public:
 	//Uses an external value, and assigns to it. NOT RECOMMENDED.
 	attr(T* const state, const T& initial_value, const getter_t& getter = nullptr, const setter_t& setter = nullptr) : attr(state, getter, setter) { *value_ptr = initial_value; }
 
-	//Attributes shouldn't be copyable.
-	attr(const attr<T>&) = delete;
+	//Attributes shouldn't be copyable, but I need to return attr<Color> in Image
+	//attr(const attr<T>&) = delete;
 	
 	//If we're using an internal value, clean up our mess!
 	~attr() { if (using_internal_value) delete value_ptr; }

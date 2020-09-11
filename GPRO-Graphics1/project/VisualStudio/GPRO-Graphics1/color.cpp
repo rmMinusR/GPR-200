@@ -148,7 +148,7 @@ inline void Color::SetScale(float newScale)
 
 Color Color::RemapScale(float newScale)
 {
-	float rescaleFactor = newScale * _scale;
+	float rescaleFactor = newScale / _scale;
 	return Color(r*rescaleFactor, g*rescaleFactor, b*rescaleFactor, newScale); //Stack-allocated. TODO Is this OK?
 }
 
