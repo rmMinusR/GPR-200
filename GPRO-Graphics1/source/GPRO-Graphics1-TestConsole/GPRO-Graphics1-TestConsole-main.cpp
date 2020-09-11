@@ -28,6 +28,8 @@
 
 #include "image.hpp"
 #include "color.hpp"
+
+#define ATTR_SHORTCUTS
 #include "attr.inl"
 
 #include <iostream>
@@ -50,11 +52,16 @@ int main(int const argc, char const* const argv[])
         }
     };
 
-    std::cout << (int)test << std::endl;
-    test = 0;
-    std::cout << (int)test << std::endl;
-    test = 2;
-    std::cout << (int)test << std::endl;
+    const_attr<int> test3{
+        3,
+        attr_get(int) {
+            return _state++;
+        }
+    };
+
+    std::cout << (int)test3 << std::endl;
+    std::cout << (int)test3 << std::endl;
+    std::cout << (int)test3 << std::endl;
 
     /*
     Image img(300, 300, 300);

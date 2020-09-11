@@ -18,9 +18,13 @@
 #error "Project is C++ only. Does NOT support C." 
 #endif
 
-#include "color.hpp"
-#include "attr.inl"
+#include "raytrace.hpp"
 
 int main(const int argc, const char* const argv[]) {
     
+    Sphere s(Vector3::zero(), 1);
+
+    Ray r(Vector3::zero(), Vector3::one());
+
+    s.trace(r);
 }

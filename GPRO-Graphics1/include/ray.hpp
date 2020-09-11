@@ -25,6 +25,7 @@
 */
 
 #include "vector.hpp"
+#include "matrix.hpp"
 
 struct Ray final {
 public:
@@ -35,4 +36,6 @@ public:
 
 	inline Vector3 GetByT(const float& t) const { return origin + (t*direction); }
 	inline Vector3 GetByDist(const float& d) const { return origin + direction.WithMagnitude(d); }
+
+	inline Ray operator*(const matrix& mat) const { return Ray(mat.TransformPoint(origin), mat.TransformVector(direction)); }
 };

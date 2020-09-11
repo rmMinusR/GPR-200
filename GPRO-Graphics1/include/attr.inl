@@ -135,11 +135,8 @@ public:
 
 	//Creates an internal value, and marks it for deletion upon dtor call
 	attr(const getter_t& getter = nullptr, const setter_t& setter = nullptr) :
-		using_internal_value{ true },
-		value_ptr{ new T },
-		_getter{ getter ? getter : std::bind(&attr<T>::default_get, this, std::placeholders::_1) },
-		_setter{ setter ? setter : std::bind(&attr<T>::default_set, this, std::placeholders::_1, std::placeholders::_2) }
-	{}
+		attr(new T, getter, setter)
+	{ using_internal_value = true; }
 
 	//Creates an internal value, initializes it, then deletes it once done
 	attr(const T& initial_value, const getter_t& getter = nullptr, const setter_t& setter = nullptr) : attr(getter, setter) { *value_ptr = initial_value; }

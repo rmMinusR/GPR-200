@@ -159,15 +159,20 @@
     <ClCompile Include="color.cpp" />
     <ClCompile Include="GPRO-Graphics1.cpp" />
     <ClCompile Include="image.cpp" />
+    <ClCompile Include="matrix.cpp" />
     <ClCompile Include="rawdata.cpp" />
+    <ClCompile Include="raytrace.cpp" />
     <ClCompile Include="vector.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\include\color.hpp" />
     <ClInclude Include="..\..\..\include\image.hpp" />
+    <ClInclude Include="..\..\..\include\matrix.hpp" />
+    <ClInclude Include="..\..\..\include\moremath.inl" />
     <ClInclude Include="..\..\..\include\pointlesskw.h" />
     <ClInclude Include="..\..\..\include\rawdata.hpp" />
     <ClInclude Include="..\..\..\include\ray.hpp" />
+    <ClInclude Include="..\..\..\include\raytrace.hpp" />
     <ClInclude Include="..\..\..\include\vector.hpp" />
   </ItemGroup>
   <ItemGroup>

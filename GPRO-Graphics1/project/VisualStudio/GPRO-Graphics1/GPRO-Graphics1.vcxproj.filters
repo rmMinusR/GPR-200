@@ -30,6 +30,12 @@
     <ClCompile Include="vector.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="raytrace.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="matrix.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\include\rawdata.hpp">
@@ -48,6 +54,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\ray.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\raytrace.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\matrix.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\moremath.inl">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
