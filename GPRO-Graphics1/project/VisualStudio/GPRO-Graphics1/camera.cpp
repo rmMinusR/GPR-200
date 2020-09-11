@@ -59,7 +59,7 @@ void Camera::render(std::vector<Traceable*> objects) const
 					if (all_hits[i].position.GetMagnitude() < closest->position.GetMagnitude()) closest = &all_hits[i];
 				}
 
-				viewport->pixel_at(x, y) = closest->color;
+				if(closest) viewport->pixel_at(x, y) = closest->color;
 			}
 			else {
 				//Ray hit nothing, fill with sky

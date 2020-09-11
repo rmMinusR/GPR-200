@@ -34,8 +34,9 @@ std::vector<trace_hit> Sphere::trace(const Ray& ray)
 			//Fetch solution #1 if it exists
 			float t = solve_for_t.getSolution(1);
 			if (t > 0) { //Prevent rendering stuff behind the camera!
-				Vector3 s1 = local_ray.GetByT(t);
-				out.push_back(trace_hit(s1, normal_at(s1), Color::FromRGB(1, 0, 0)));
+				Vector3 pos = local_ray.GetByT(t);
+				Vector3 nrm = normal_at(pos);
+				out.push_back(trace_hit(_ltw.TransformPoint(pos), _ltw.TransformVector(nrm), Color::FromRGB(nrm.x+1, nrm.y+1, nrm.z+1, 20)));
 			}
 		}
 	case 1:
@@ -43,8 +44,9 @@ std::vector<trace_hit> Sphere::trace(const Ray& ray)
 			//Fetch solution #0 if it exists
 			float t = solve_for_t.getSolution(0);
 			if (t > 0) { //Prevent rendering stuff behind the camera!
-				Vector3 s0 = local_ray.GetByT(solve_for_t.getSolution(0));
-				out.push_back(trace_hit(s0, normal_at(s0), Color::FromRGB(1, 0, 0)));
+				Vector3 pos = local_ray.GetByT(t);
+				Vector3 nrm = normal_at(pos);
+				out.push_back(trace_hit(_ltw.TransformPoint(pos), _ltw.TransformVector(nrm), Color::FromRGB(nrm.x+1, nrm.y+1, nrm.z+1, 20)));
 			}
 		}
 	}
@@ -52,8 +54,8 @@ std::vector<trace_hit> Sphere::trace(const Ray& ray)
 	return out;
 }
 
-Vector3 Sphere::normal_at(const Vector3& pos)
+Vector3 Sphere::normal_at(const Vector3& local_pos)
 {
-	Vector3 pos_diff = pos - Vector3(_ltw(3, 0), _ltw(3, 1), _ltw(3, 2));
+	Vector3 pos_diff = local_pos - Vector3(_ltw(3, 0), _ltw(3, 1), _ltw(3, 2));
 	return pos_diff.Normalize();
 }

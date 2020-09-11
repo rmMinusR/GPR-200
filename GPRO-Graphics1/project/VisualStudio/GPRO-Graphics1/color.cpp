@@ -161,6 +161,12 @@ Color& Color::operator=(const float3& _rhs)
 	this->val0 = rhs->val0;
 	this->val1 = rhs->val1;
 	this->val2 = rhs->val2;
+	
+	//Wrap values
+	while (val0 < 0) val0+=GetScale();
+	while (val1 < 0) val1+=GetScale();
+	while (val2 < 0) val2+=GetScale();
+
 	return *this;
 }
 
@@ -174,7 +180,12 @@ Color& Color::operator=(const Color& rhs)
 
 
 Color::Color(const float3& base) : float3(base), r{ val0 }, g{ val1 }, b{ val2 }, _scale{ 1.0 }
-{ }
+{
+	//Wrap values
+	while (val0 < 0) val0 += GetScale();
+	while (val1 < 0) val1 += GetScale();
+	while (val2 < 0) val2 += GetScale();
+}
 
 Color::Color() : Color(0, 0, 0, 1)
 { }
