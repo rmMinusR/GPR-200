@@ -14,15 +14,17 @@ Camera::Camera(Image& viewport, const float& fov) :
 
 inline Ray Camera::prepareTracer(const int& px_x, const int& px_y) const
 {
-	float nrm_x = fmap((float)px_x, 0.0f, (float)viewport->width , -0.5f, 0.5f);
-	float nrm_y = fmap((float)px_y, 0.0f, (float)viewport->height, -0.5f, 0.5f);
+	const float asp_ratio = float(viewport->width)/viewport->height;
 	
-	float glob_x = tanf(fov*nrm_x);
-	float glob_y = tanf(fov*nrm_y);
+	float ang_x = fmap((float)px_x, 0.0f, (float)viewport->width , -fov/2, fov/2);
+	float ang_y = fmap((float)px_y, 0.0f, (float)viewport->height, -fov/2, fov/2)*asp_ratio;
+	
+	float glob_x = tanf(ang_x);
+	float glob_y = tanf(ang_y);
 
 	return Ray(
 		Vector3::zero(),
-		Vector3(glob_x, glob_y, 0)
+		Vector3(glob_x, glob_y, 1)
 	);
 }
 

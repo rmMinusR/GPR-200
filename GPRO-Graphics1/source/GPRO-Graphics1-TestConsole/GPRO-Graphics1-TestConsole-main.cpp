@@ -30,6 +30,8 @@
 #include "image.hpp"
 #include "raytrace.hpp"
 
+#include "moremath.inl"
+
 #include <vector>
 #include <iostream>
 #include <fstream>
@@ -39,8 +41,8 @@ int main(int const argc, char const* const argv[])
 {
     std::cout << "Initializing camera..." << std::endl;
 
-    Image viewport(160, 90, 255);
-    Camera cam(viewport, 135.0f);
+    Image viewport(16*20, 9*20, 255);
+    Camera cam(viewport, 75.0f*DEG2RAD);
     
     //Test objects. Anything passed to Camera::render must be allocated
     //on heap to correctly render (polymorphism must take effect)

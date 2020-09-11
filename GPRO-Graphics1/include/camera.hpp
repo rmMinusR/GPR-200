@@ -16,7 +16,8 @@ public:
 
 	float fov;
 
-	Camera(Image& viewport, const float& fov);
+	//Uses *radians, not degrees*
+	Camera(Image& viewport, const float& fov_radians);
 
 	inline Ray prepareTracer(const int& px_x, const int& px_y) const;
 

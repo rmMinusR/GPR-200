@@ -110,7 +110,7 @@ matrix matrix::Minors() const
 matrix matrix::CheckerboardSign() const
 {
 	matrix out(size);
-	for(int x = 0; x < size; x++) for(int y = 0; y < size; y++) out(x,x) = ( ((x^y)&1) == 1 )? -at_c(x, y) : at_c(x, y);
+	for(int x = 0; x < size; x++) for(int y = 0; y < size; y++) out(x,y) = ( x%2 != y%2 )? -at_c(x, y) : at_c(x, y);
 	return out;
 }
 

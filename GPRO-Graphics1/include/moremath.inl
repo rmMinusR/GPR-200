@@ -26,6 +26,13 @@
 
 #define EPSILON 0.00001f
 
+#ifndef PI
+#define PI 3.14159265f
+#endif
+
+#define DEG2RAD (2*PI/360)
+#define RAD2DEG (360/2/PI)
+
 constexpr int   sq(const int&   x) { return x * x; }
 constexpr float sq(const float& x) { return x * x; }
 
@@ -47,14 +54,14 @@ public:
 
 	inline int getSolutionCount() const {
 		float disc = discriminant();
-		     if (disc < 0)      return 0;
+		     if(disc < 0)       return 0;
 		else if(disc < EPSILON) return 1;
 		else                    return 2;
 	}
 
 	inline float getSolution(const int& which) {
 		if (which < 0 || which >= getSolutionCount()) throw std::invalid_argument("Solution out of bounds");
-		if(which & 1) return (-b + sqrtf(discriminant())) /4/a/c;
+		if (which == 1) return (-b + sqrtf(discriminant())) /4/a/c;
 		else return (-b - sqrtf(discriminant())) /4/a/c;
 	}
 };

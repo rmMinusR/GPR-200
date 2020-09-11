@@ -2,6 +2,8 @@
 
 #include "moremath.inl"
 
+#include <iostream>
+
 Sphere::Sphere(const Vector3& _position, const float& _radius) :
 	_ltw(matrix::Translate(_position)), //Crappy way of doing this, but I don't have another (easy) option.
 	radius(_radius)
@@ -18,11 +20,16 @@ std::vector<trace_hit> Sphere::trace(const Ray& ray)
 	//Or so I thought at 2am. Anyway I have some notes in my notebook that I don't
 	//feel like typing up, if you want to see them I'll post a screenshot.
 
-	Ray local_ray = ray * (matrix)worldToLocal;
+	matrix _wtl = _ltw.Inverse();
+	Ray local_ray = ray * _wtl;
 	Vector3& o = local_ray.origin;
 	Vector3& d = local_ray.direction;
 
 	quadratic solve_for_t(sq(d.x)+sq(d.y)+sq(d.z), 2*(o.x*d.x+o.y*d.y+o.z*d.z), sq(o.x)+sq(o.y)+sq(o.z)+sq(radius));
+
+	if (solve_for_t.getSolutionCount() > 0) {
+		std::cout << solve_for_t.getSolutionCount() << std::endl;
+	}
 
 	//INTENTIONAL CASCADE OF PROGRAM FLOW
 	switch (solve_for_t.getSolutionCount()) {

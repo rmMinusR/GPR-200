@@ -152,8 +152,8 @@ public:
 	//Uses an external value, and assigns to it. NOT RECOMMENDED.
 	attr(T* const state, const T& initial_value, const getter_t& getter = nullptr, const setter_t& setter = nullptr) : attr(state, getter, setter) { *value_ptr = initial_value; }
 
-	//Attributes shouldn't be copyable, but I need to return attr<Color> in Image
-	//attr(const attr<T>&) = delete;
+	//Attributes shouldn't be copyable
+	attr(const attr<T>&) = delete;
 	
 	//If we're using an internal value, clean up our mess!
 	~attr() { if (using_internal_value) delete value_ptr; }
